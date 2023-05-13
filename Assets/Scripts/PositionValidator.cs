@@ -16,7 +16,7 @@ public class PositionValidator : MonoBehaviour
 
     public bool IsValidPosition(Vector2 pos)
     {
-        Debug.Log(pos.x + " " + pos.y);
+        //Debug.Log(pos.x + " " + pos.y);
 
         if ((0 <= pos.x && pos.x <= 2) && (0 <= pos.y && pos.y <= 2))
         {
