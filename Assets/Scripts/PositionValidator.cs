@@ -4,50 +4,55 @@ using UnityEngine;
 
 public class PositionValidator : MonoBehaviour
 {
+    public static PositionValidator Instance { get; private set; }
 
-    [SerializeField] bool debugOption = false;
-    [SerializeField] Ball ball;
+    [Header("Debug Options")]
+    [SerializeField] bool debugLogActive = false;
 
-    private void Start()
+
+    private void Awake()
     {
-        IsValidPosition(ball.transform.position);
+        if (Instance != null)
+        {
+            Debug.LogError("There's more than one UnitActionSystem! " + transform + " - " + Instance);
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
     }
 
-
-    public bool IsValidPosition(Vector2 pos)
+    public bool IsValidPosition(GridPosition gridPosition)
     {
-        //Debug.Log(pos.x + " " + pos.y);
-
-        if ((0 <= pos.x && pos.x <= 2) && (0 <= pos.y && pos.y <= 2))
+        if ((0 <= gridPosition.x && gridPosition.x <= 2) && (0 <= gridPosition.y && gridPosition.y <= 2))
         {
-            if (debugOption)
+            if (debugLogActive)
                 Debug.Log("Invalid position: Q1");
             return false;
         }
 
-        if ((6 <= pos.x && pos.x <= 8) && (0 <= pos.y && pos.y <= 2))
+        if ((6 <= gridPosition.x && gridPosition.x <= 8) && (0 <= gridPosition.y && gridPosition.y <= 2))
         {
-            if (debugOption)
+            if (debugLogActive)
                 Debug.Log("Invalid position: Q3");
             return false;
         }
 
-        if ((0 <= pos.x && pos.x <= 2) && (6 <= pos.y && pos.y <= 8))
+        if ((0 <= gridPosition.x && gridPosition.x <= 2) && (6 <= gridPosition.y && gridPosition.y <= 8))
         {
-            if (debugOption)
+            if (debugLogActive)
                 Debug.Log("Invalid position: Q7");
             return false;
         }
 
-        if ((6 <= pos.x && pos.x <= 8) && (6 <= pos.y && pos.y <= 8))
+        if ((6 <= gridPosition.x && gridPosition.x <= 8) && (6 <= gridPosition.y && gridPosition.y <= 8))
         {
-            if (debugOption)
+            if (debugLogActive)
                 Debug.Log("Invalid position: Q9");
             return false;
         }
 
-        if (debugOption)
-            Debug.Log("Valid position: " + pos.x + " " + pos.y);
+        if (debugLogActive)
+            Debug.Log("Valid position: " + gridPosition.x + " " + gridPosition.y);
         return true;
     }
 

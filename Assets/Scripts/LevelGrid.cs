@@ -28,6 +28,7 @@ public class LevelGrid : MonoBehaviour
         }
         Instance = this;
 
+        // Here we create the GridSystem
         gridSystem = new GridSystem(width, height, cellSize);
 
         if (isDebugActive)
@@ -60,7 +61,7 @@ public class LevelGrid : MonoBehaviour
     //    AddUnitAtGridPosition(toGridPosition, unit);
     //}
 
-    public GridPosition GetGridPosition(Vector3 worldPosition) => gridSystem.GetGridPosition(worldPosition);
+    public GridPosition GetGridPosition(Vector2 worldPosition) => gridSystem.GetGridPosition(worldPosition);
 
     /* This is the same thing:
     public GridPosition GetGridPosition(Vector3 worldPosition)
@@ -76,6 +77,8 @@ public class LevelGrid : MonoBehaviour
     public int GetWidth() => gridSystem.GetWidth();
 
     public int GetHeight() => gridSystem.GetHeight();
+
+    public float GetCellSize() => gridSystem.GetCellSize();
 
     //public bool HasAnyUnitOnGridPosition(GridPosition gridPosition)
     //{

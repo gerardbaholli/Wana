@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1025431143729645910, guid: 68e1917b973df496e95bace337eeccb7, type: 3}
       propertyPath: m_Name
-      value: Ball (6)
+      value: Ball_Y
       objectReference: {fileID: 0}
     - target: {fileID: 1025431143729645911, guid: 68e1917b973df496e95bace337eeccb7, type: 3}
       propertyPath: part

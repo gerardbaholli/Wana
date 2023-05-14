@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 973814866}
   - component: {fileID: 973814865}
   m_Layer: 0
-  m_Name: Position Validator
+  m_Name: PositionValidator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -561,8 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff3e0d8b11f744afaab53d15179ab6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugOption: 1
-  ball: {fileID: 1318833277}
+  debugLogActive: 0
 --- !u!4 &973814866
 Transform:
   m_ObjectHideFlags: 0
@@ -854,17 +853,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1025431143729645909, guid: 68e1917b973df496e95bace337eeccb7, type: 3}
   m_PrefabInstance: {fileID: 1311942254}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1318833277 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1025431143729645911, guid: 68e1917b973df496e95bace337eeccb7, type: 3}
-  m_PrefabInstance: {fileID: 1025431144830272810}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aa1ffd360528486cac38e514a159caa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1318833280 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1025431143729645909, guid: 68e1917b973df496e95bace337eeccb7, type: 3}
@@ -1601,10 +1589,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f752009c90b624de285ab6eb302076f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridDebugObjectPrefab: {fileID: 1150153779012183968, guid: 36ff613b3f93d412588ffa1b8dbb6333, type: 3}
   width: 9
   height: 9
   cellSize: 2
+  isDebugActive: 1
+  gridDebugObjectPrefab: {fileID: 1150153779012183968, guid: 36ff613b3f93d412588ffa1b8dbb6333, type: 3}
 --- !u!1001 &2091233111
 PrefabInstance:
   m_ObjectHideFlags: 0
