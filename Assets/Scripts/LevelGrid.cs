@@ -37,11 +37,11 @@ public class LevelGrid : MonoBehaviour
         }
     }
 
-    //public void AddUnitAtGridPosition(GridPosition gridPosition, Unit unit)
-    //{
-    //    GridObject gridObject = gridSystem.GetGridObject(gridPosition);
-    //    gridObject.AddUnit(unit);
-    //}
+    public void AddBallAtGridPosition(GridPosition gridPosition, Ball ball)
+    {
+        GridObject gridObject = gridSystem.GetGridObject(gridPosition);
+        gridObject.AddBall(ball);
+    }
 
     //public List<Unit> GetUnitListAtGridPosition(GridPosition gridPosition)
     //{

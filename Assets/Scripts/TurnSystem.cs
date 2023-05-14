@@ -7,10 +7,16 @@ public class TurnSystem : MonoBehaviour
 {
     public static TurnSystem Instance { get; private set; }
 
-    public event EventHandler OnTurnChanged;
+    //public event EventHandler OnTurnChanged;
+
+    public enum Part
+    {
+        Player1,
+        Player2
+    }
 
     private int turnNumber = 1;
-    private bool isPlayerTurn = true;
+    private Part playerTurn = Part.Player1;
 
     private void Awake()
     {
@@ -26,8 +32,19 @@ public class TurnSystem : MonoBehaviour
     public void NextTurn()
     {
         turnNumber++;
-        isPlayerTurn = !isPlayerTurn;
-        OnTurnChanged?.Invoke(this, EventArgs.Empty);
+
+        if (playerTurn == Part.Player1)
+        {
+            playerTurn = Part.Player2;
+        }
+        else
+        {
+            playerTurn = Part.Player1;
+        }
+
+        Debug.Log("NextTurn()" + playerTurn);
+
+        //OnTurnChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public int GetTurnNumber()
@@ -35,9 +52,9 @@ public class TurnSystem : MonoBehaviour
         return turnNumber;
     }
 
-    public bool IsPlayerTurn()
+    public Part GetPlayerTurn()
     {
-        return isPlayerTurn;
+        return playerTurn;
     }
 
 }

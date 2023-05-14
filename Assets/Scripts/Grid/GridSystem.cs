@@ -61,10 +61,32 @@ public class GridSystem
 
     public bool IsValidGridPosition(GridPosition gridPosition)
     {
-        return gridPosition.x >= 0 &&
-            gridPosition.y >= 0 &&
-            gridPosition.x < width &&
-            gridPosition.y < height;
+        if ((0 <= gridPosition.x && gridPosition.x <= 2) && (0 <= gridPosition.y && gridPosition.y <= 2))
+        {
+            Debug.Log("Invalid position: Q1");
+            return false;
+        }
+
+        if ((6 <= gridPosition.x && gridPosition.x <= 8) && (0 <= gridPosition.y && gridPosition.y <= 2))
+        {
+            Debug.Log("Invalid position: Q3");
+            return false;
+        }
+
+        if ((0 <= gridPosition.x && gridPosition.x <= 2) && (6 <= gridPosition.y && gridPosition.y <= 8))
+        {
+            Debug.Log("Invalid position: Q7");
+            return false;
+        }
+
+        if ((6 <= gridPosition.x && gridPosition.x <= 8) && (6 <= gridPosition.y && gridPosition.y <= 8))
+        {
+            Debug.Log("Invalid position: Q9");
+            return false;
+        }
+
+        //Debug.Log("Valid position: [" + gridPosition.x + ", " + gridPosition.y + "]");
+        return true;
     }
 
     public int GetWidth()
