@@ -143,6 +143,8 @@ public class LevelGrid : MonoBehaviour
 
     public GridPosition GetGridPosition(Vector2 worldPosition) => gridSystem.GetGridPosition(worldPosition);
 
+    //public int GetGridPositionQuadrant(GridPosition gridPosition) => gridSystem.GetGridPositionQuadrant(gridPosition);
+
     /* This is the same thing:
     public GridPosition GetGridPosition(Vector3 worldPosition)
     {

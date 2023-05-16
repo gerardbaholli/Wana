@@ -52,7 +52,6 @@ public class Ball : MonoBehaviour
 
         Vector2 nearestPosition = GetNearestPosition(this.transform.position);
         GridPosition endPosition = LevelGrid.Instance.GetGridPosition(nearestPosition);
-        //bool isValidMovement = LevelGrid.Instance.IsValidGridPosition(endPosition);
         bool isValidMovement = LevelGrid.Instance.IsValidMovement(startPosition, endPosition);
         bool isSamePosition = (startPosition == endPosition);
 
