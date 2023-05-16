@@ -10,19 +10,25 @@ public class Ball : MonoBehaviour
     [SerializeField] TurnSystem.Part part;
     [SerializeField] float moveDuration = 0.5f;
 
+
     private Vector3 mOffset;
     private float mZCoord;
 
-    private GridPosition startingPosition;
+    public static event EventHandler OnAnyBallMoved;
+    private GridPosition startPosition;
 
     private void Start()
     {
-        startingPosition = LevelGrid.Instance.GetGridPosition(this.transform.position);
+        startPosition = LevelGrid.Instance.GetGridPosition(this.transform.position);
+        LevelGrid.Instance.AddBallAtGridPosition(this, startPosition);
     }
 
     private void OnMouseDown()
     {
-        //startingPosition = LevelGrid.Instance.GetGridPosition(this.transform.position);
+        if (!IsPlayerTurn())
+            return;
+
+        LevelGrid.Instance.HighlightValidMovePosition(startPosition);
 
         mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
 
@@ -46,17 +52,24 @@ public class Ball : MonoBehaviour
 
         Vector2 nearestPosition = GetNearestPosition(this.transform.position);
         GridPosition endPosition = LevelGrid.Instance.GetGridPosition(nearestPosition);
-        bool isValidMovement = LevelGrid.Instance.IsValidGridPosition(endPosition);
+        //bool isValidMovement = LevelGrid.Instance.IsValidGridPosition(endPosition);
+        bool isValidMovement = LevelGrid.Instance.IsValidMovement(startPosition, endPosition);
+        bool isSamePosition = (startPosition == endPosition);
 
-        if (isValidMovement)
+        if (isValidMovement && !isSamePosition)
         {
             MoveOnNearestGridPosition(moveDuration);
-            startingPosition = endPosition;
+            LevelGrid.Instance.AddBallAtGridPosition(this, endPosition);
+            LevelGrid.Instance.RemoveBallAtGridPosition(startPosition);
+            LevelGrid.Instance.RemoveValidMovePosition();
+            startPosition = endPosition;
+            OnAnyBallMoved?.Invoke(this, EventArgs.Empty);
             NextTurn();
         }
         else
         {
-            MoveOnGridPosition(startingPosition, moveDuration);
+            MoveOnGridPosition(startPosition, moveDuration);
+            LevelGrid.Instance.RemoveValidMovePosition();
         }
 
     }

@@ -7,13 +7,12 @@ public class GridObject
 
     private GridSystem gridSystem;
     private GridPosition gridPosition;
-    private List<Ball> ballList;
+    private Ball ball;
 
     public GridObject(GridSystem gridSystem, GridPosition gridPosition)
     {
         this.gridSystem = gridSystem;
         this.gridPosition = gridPosition;
-        ballList = new List<Ball>();
     }
 
     public override string ToString()
@@ -33,22 +32,27 @@ public class GridObject
 
     public void AddBall(Ball ball)
     {
-        ballList.Add(ball);
+        this.ball = ball;
     }
 
-    //public void RemoveBall(Ball ball)
-    //{
-    //    ballList.Remove(ball);
-    //}
+    public void RemoveBall()
+    {
+        this.ball = null;
+    }
+
+    public bool HasAnyBall()
+    {
+        return ball != null;
+    }
+
+    public GridPosition GetGridPosition()
+    {
+        return gridPosition;
+    }
 
     //public List<Unit> GetUnitList()
     //{
     //    return unitList;
-    //}
-
-    //public bool HasAnyUnit()
-    //{
-    //    return unitList.Count > 0;
     //}
 
     //public Unit GetUnit()

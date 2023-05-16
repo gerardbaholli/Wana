@@ -42,7 +42,7 @@ public class TurnSystem : MonoBehaviour
             playerTurn = Part.Player1;
         }
 
-        Debug.Log("NextTurn()" + playerTurn);
+        //Debug.Log("NextTurn()" + playerTurn);
 
         //OnTurnChanged?.Invoke(this, EventArgs.Empty);
     }
