@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TurnSystem : MonoBehaviour
@@ -9,14 +10,10 @@ public class TurnSystem : MonoBehaviour
 
     //public event EventHandler OnTurnChanged;
 
-    public enum Part
-    {
-        Player1,
-        Player2
-    }
-
     private int turnNumber = 1;
     private Part playerTurn = Part.Player1;
+
+    public enum Part { Player1, Player2 }
 
     private void Awake()
     {
@@ -42,14 +39,7 @@ public class TurnSystem : MonoBehaviour
             playerTurn = Part.Player1;
         }
 
-        //Debug.Log("NextTurn()" + playerTurn);
-
         //OnTurnChanged?.Invoke(this, EventArgs.Empty);
-    }
-
-    public int GetTurnNumber()
-    {
-        return turnNumber;
     }
 
     public Part GetPlayerTurn()

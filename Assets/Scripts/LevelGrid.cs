@@ -19,12 +19,14 @@ public class LevelGrid : MonoBehaviour
     private float cellSize = 2f;
 
     private GridSystem gridSystem;
+    private Ball selectedBall;
+    private Ball[] ballList;
 
     private void Awake()
     {
         if (Instance != null)
         {
-            Debug.LogError("There's more than one UnitActionSystem! " + transform + " - " + Instance);
+            Debug.LogError("There's more than one LevelGrid! " + transform + " - " + Instance);
             Destroy(gameObject);
             return;
         }
@@ -47,7 +49,32 @@ public class LevelGrid : MonoBehaviour
 
     private void Start()
     {
+        ballList = FindObjectsOfType<Ball>();
         Ball.OnAnyBallMoved += Ball_OnAnyBallMoved;
+        Ball.OnAnyBallSelected += Ball_OnAnyBallSelected;
+        GridValidObject.OnValidPositionSelected += GridValidObject_OnValidPositionSelected;
+    }
+
+    private void GridValidObject_OnValidPositionSelected(object sender, EventArgs e)
+    {
+        GridValidObject gridValidObject = sender as GridValidObject;
+        Vector2 worldPosition = gridValidObject.transform.position;
+        GridPosition endPosition = GetGridPosition(worldPosition);
+
+        selectedBall.MakeMove(endPosition);
+    }
+
+    private void Ball_OnAnyBallSelected(object sender, EventArgs e)
+    {
+        selectedBall = sender as Ball;
+
+        for (int i = 0; i < ballList.Length; i++)
+        {
+            if (ballList[i] != selectedBall)
+            {
+                ballList[i].DeselectBall();
+            };
+        }
     }
 
     private void Ball_OnAnyBallMoved(object sender, EventArgs e)
@@ -151,6 +178,8 @@ public class LevelGrid : MonoBehaviour
         return gridSystem.GetGridPosition(worldPosition);
     }
     */
+
+    public bool HasBallAtGridPosition(GridPosition gridPosition) => gridSystem.GetGridObject(gridPosition).HasAnyBall();
 
     public Vector3 GetWorldPosition(GridPosition gridPosition) => gridSystem.GetWorldPosition(gridPosition);
 

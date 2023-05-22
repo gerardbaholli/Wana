@@ -76,6 +76,10 @@ PrefabInstance:
       propertyPath: part
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1025431143729645911, guid: 68e1917b973df496e95bace337eeccb7, type: 3}
+      propertyPath: highlightBallSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4527346ef4d9b41d6b41bd1bdc000503, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

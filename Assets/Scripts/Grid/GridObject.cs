@@ -20,16 +20,6 @@ public class GridObject
         return gridPosition.ToString();
     }
 
-    //public override string ToString()
-    //{
-    //    string unitString = "";
-    //    foreach (Unit unit in unitList)
-    //    {
-    //        unitString += unit + "\n";
-    //    }
-    //    return gridPosition.ToString() + "\n" + unitString;
-    //}
-
     public void AddBall(Ball ball)
     {
         this.ball = ball;
@@ -49,22 +39,5 @@ public class GridObject
     {
         return gridPosition;
     }
-
-    //public List<Unit> GetUnitList()
-    //{
-    //    return unitList;
-    //}
-
-    //public Unit GetUnit()
-    //{
-    //    if (HasAnyUnit())
-    //    {
-    //        return unitList[0];
-    //    }
-    //    else
-    //    {
-    //        return null;
-    //    }
-    //}
 
 }

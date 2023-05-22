@@ -3,6 +3,8 @@ using TMPro;
 using System.Collections.Generic;
 using System;
 using Unity.VisualScripting;
+using System.Collections;
+using static UnityEditor.Progress;
 
 public class GridSystem
 {
@@ -282,6 +284,10 @@ public class GridSystem
                     tempBallGridPosition.x = tempBallGridPosition.y;
                     tempBallGridPosition.y = temp;
 
+                    gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
+                    if (gridObject.HasAnyBall())
+                        return;
+
                     possibleCircularMovementList.Add(tempBallGridPosition);
 
                     ballQuadrant = GetGridPositionQuadrant(tempBallGridPosition);
@@ -307,6 +313,10 @@ public class GridSystem
                 {
                     tempBallGridPosition.x = tempBallGridPosition.x - ballRing;
                     tempBallGridPosition.y = ++tempBallGridPosition.y - ballRing;
+
+                    gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
+                    if (gridObject.HasAnyBall())
+                        return;
 
                     possibleCircularMovementList.Add(tempBallGridPosition);
 
@@ -335,6 +345,10 @@ public class GridSystem
                     tempBallGridPosition.x = tempBallGridPosition.y;
                     tempBallGridPosition.y = temp;
 
+                    gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
+                    if (gridObject.HasAnyBall())
+                        return;
+
                     possibleCircularMovementList.Add(tempBallGridPosition);
 
                     ballQuadrant = GetGridPositionQuadrant(tempBallGridPosition);
@@ -360,6 +374,10 @@ public class GridSystem
                 {
                     tempBallGridPosition.x = tempBallGridPosition.x + ballRing;
                     tempBallGridPosition.y = --tempBallGridPosition.y + ballRing;
+
+                    gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
+                    if (gridObject.HasAnyBall())
+                        return;
 
                     possibleCircularMovementList.Add(tempBallGridPosition);
 
@@ -402,6 +420,10 @@ public class GridSystem
 
                     possibleCircularMovementList.Add(tempBallGridPosition);
 
+                    gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
+                    if (gridObject.HasAnyBall())
+                        return;
+
                     ballQuadrant = GetGridPositionQuadrant(tempBallGridPosition);
                     continue;
                 }
@@ -426,6 +448,10 @@ public class GridSystem
                     int temp = tempBallGridPosition.x;
                     tempBallGridPosition.x = ++tempBallGridPosition.y;
                     tempBallGridPosition.y = temp;
+
+                    gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
+                    if (gridObject.HasAnyBall())
+                        return;
 
                     possibleCircularMovementList.Add(tempBallGridPosition);
 
@@ -453,6 +479,10 @@ public class GridSystem
                     tempBallGridPosition.x = --tempBallGridPosition.x + ballRing;
                     tempBallGridPosition.y = tempBallGridPosition.y + ballRing;
 
+                    gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
+                    if (gridObject.HasAnyBall())
+                        return;
+
                     possibleCircularMovementList.Add(tempBallGridPosition);
 
                     ballQuadrant = GetGridPositionQuadrant(tempBallGridPosition);
@@ -479,6 +509,10 @@ public class GridSystem
                     int temp = tempBallGridPosition.x;
                     tempBallGridPosition.x = --tempBallGridPosition.y;
                     tempBallGridPosition.y = temp;
+
+                    gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
+                    if (gridObject.HasAnyBall())
+                        return;
 
                     possibleCircularMovementList.Add(tempBallGridPosition);
 
