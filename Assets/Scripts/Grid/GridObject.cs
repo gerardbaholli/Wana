@@ -35,6 +35,11 @@ public class GridObject
         return ball != null;
     }
 
+    public Ball GetBall()
+    {
+        return ball;
+    }
+
     public GridPosition GetGridPosition()
     {
         return gridPosition;

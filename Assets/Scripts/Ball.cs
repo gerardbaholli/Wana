@@ -74,7 +74,7 @@ public class Ball : MonoBehaviour
         spriteRenderer.sortingOrder = 20;
 
         Vector3 halfwayPosition = ((Vector2)this.transform.position + worldPositionToMove) / 2f;
-        Vector3 targetScale = transform.localScale * 1.1f;
+        Vector3 targetScale = transform.localScale * 1.2f;
 
         Sequence sequence = DOTween.Sequence();
 

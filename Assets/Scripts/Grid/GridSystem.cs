@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System;
 using Unity.VisualScripting;
 using System.Collections;
-using static UnityEditor.Progress;
 
 public class GridSystem
 {

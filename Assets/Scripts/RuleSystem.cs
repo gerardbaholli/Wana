@@ -27,8 +27,6 @@ public class RuleSystem : MonoBehaviour
 
     private void Start()
     {
-        Ball.OnAnyBallMoved += Ball_OnAnyBallMoved;
-
         width = LevelGrid.Instance.GetWidth();
         height = LevelGrid.Instance.GetHeight();
         gridObjectArray = LevelGrid.Instance.GetGridObjectArray();
@@ -618,17 +616,8 @@ public class RuleSystem : MonoBehaviour
 
     }
 
-    private void Ball_OnAnyBallMoved(object sender, EventArgs e)
+    public bool IsGameOver(out Ball ball)
     {
-        if (IsGameOver())
-        {
-            Debug.Log("GAME OVER");
-        }
-    }
-
-    private bool IsGameOver()
-    {
-
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
@@ -645,11 +634,13 @@ public class RuleSystem : MonoBehaviour
 
                 if (hasBallUp && hasBallDown && hasBallLeft && hasBallRight)
                 {
+                    ball = gridObject.GetBall();
                     return true;
                 }
             }
         }
 
+        ball = null;
         return false;
     }
 
