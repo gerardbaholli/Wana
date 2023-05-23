@@ -496,9 +496,9 @@ public class RuleSystem : MonoBehaviour
         }
         else if (gridPositionQuadrant == 4)
         {
-            if (gridPosition.x == 2) { return 3; }
+            if (gridPosition.x == 2) { return 1; }
             if (gridPosition.x == 1) { return 2; }
-            if (gridPosition.x == 0) { return 1; }
+            if (gridPosition.x == 0) { return 3; }
         }
 
         return 0;
@@ -643,8 +643,6 @@ public class RuleSystem : MonoBehaviour
                 bool hasBallLeft = HasAnyBallLeft(gridObject);
                 bool hasBallRight = HasAnyBallRight(gridObject);
 
-                //Debug.Log("I'm " + x + ", " + y + " @@@ " + hasBallUp + " " + hasBallDown + " " + hasBallLeft + " " + hasBallRight);
-
                 if (hasBallUp && hasBallDown && hasBallLeft && hasBallRight)
                 {
                     return true;
@@ -667,13 +665,10 @@ public class RuleSystem : MonoBehaviour
             if (gridPosition.y == 8)
                 upY = 0;
 
-            //Debug.Log("Ehi " + gridPosition.x + ", " + gridPosition.y + " @@@ " + gridPosition.x + ", " + upY + " up " + gridObjectArray[gridPosition.x, upY].HasAnyBall());
             return gridObjectArray[gridPosition.x, upY].HasAnyBall();
         }
         else
         {
-            //Debug.Log("Ehi " + gridPosition.x + ", " + gridPosition.y + " not inside.");
-
             int gridPositionRing = GetGridPositionRing(gridPosition);
             int gridPositionQuadrant = GetGridPositionQuadrant(gridPosition);
 
@@ -706,7 +701,6 @@ public class RuleSystem : MonoBehaviour
             if (gridPosition.y == 0)
                 downY = 8;
 
-            //Debug.Log(gridPosition.x + ", " + downY + " down " + gridObjectArray[gridPosition.x, downY].HasAnyBall());
             return gridObjectArray[gridPosition.x, downY].HasAnyBall();
         }
         else
@@ -800,6 +794,14 @@ public class RuleSystem : MonoBehaviour
             }
 
             return gridObjectArray[rightGridPosition.x, rightGridPosition.y].HasAnyBall();
+        }
+    }
+
+    private void PrintGridPositionList(List<GridPosition> gridPositionList)
+    {
+        foreach (GridPosition gridPosition in gridPositionList)
+        {
+            Debug.Log(gridPosition.ToString());
         }
     }
 

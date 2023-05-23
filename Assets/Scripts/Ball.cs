@@ -71,7 +71,25 @@ public class Ball : MonoBehaviour
     {
         Vector2 worldPositionToMove = LevelGrid.Instance.GetWorldPosition(gridPositionToMove);
 
-        transform.DOMove(worldPositionToMove, moveDuration);
+        spriteRenderer.sortingOrder = 20;
+
+        Vector3 halfwayPosition = ((Vector2)this.transform.position + worldPositionToMove) / 2f;
+        Vector3 targetScale = transform.localScale * 1.1f;
+
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(transform.DOMove(halfwayPosition, moveDuration));
+        sequence.Join(transform.DOScale(targetScale, 0.3f).SetEase(Ease.OutQuad));
+        sequence.Append(transform.DOMove(worldPositionToMove, moveDuration));
+        sequence.Join(transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InQuad));
+
+        StartCoroutine(WaitForTweenCompletion(sequence));
+    }
+
+    private IEnumerator WaitForTweenCompletion(Tween tween)
+    {
+        yield return tween.WaitForCompletion();
+        spriteRenderer.sortingOrder = 10;
     }
 
     // To remove
