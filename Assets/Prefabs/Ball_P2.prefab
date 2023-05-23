@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1025431143729645909, guid: 68e1917b973df496e95bace337eeccb7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1025431143729645909, guid: 68e1917b973df496e95bace337eeccb7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1025431143729645910, guid: 68e1917b973df496e95bace337eeccb7, type: 3}
       propertyPath: m_Name
-      value: Ball_Y
+      value: Ball_P2
       objectReference: {fileID: 0}
     - target: {fileID: 1025431143729645911, guid: 68e1917b973df496e95bace337eeccb7, type: 3}
       propertyPath: part

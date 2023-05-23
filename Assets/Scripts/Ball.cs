@@ -47,7 +47,7 @@ public class Ball : MonoBehaviour
 
     public void MakeMove(GridPosition endPosition)
     {
-        bool isValidMovement = LevelGrid.Instance.IsValidMovement(startPosition, endPosition);
+        bool isValidMovement = RuleSystem.Instance.IsValidMovement(startPosition, endPosition);
         bool hasAnyBall = LevelGrid.Instance.HasBallAtGridPosition(endPosition);
         bool isSamePosition = (startPosition == endPosition);
 
@@ -110,7 +110,7 @@ public class Ball : MonoBehaviour
         if (spriteRenderer != null && highlightBallSprite != null)
         {
             spriteRenderer.sprite = highlightBallSprite;
-            LevelGrid.Instance.HighlightValidMovePosition(startPosition);
+            RuleSystem.Instance.HighlightValidMovePosition(startPosition);
         }
 
     }
