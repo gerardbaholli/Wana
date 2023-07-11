@@ -22,6 +22,13 @@ public class Ball : MonoBehaviour
     public static event EventHandler OnAnyBallSelected;
     public static event EventHandler OnAnyBallClicked;
 
+    public static void ResetStaticData()
+    {
+        OnAnyBallMoved = null;
+        OnAnyBallSelected = null;
+        OnAnyBallClicked = null;
+    }
+
     private GridPosition startPosition;
 
 

@@ -8,6 +8,11 @@ public class GridValidObject : MonoBehaviour
 
     public static event EventHandler OnValidPositionSelected;
 
+    public static void ResetStaticData()
+    {
+        OnValidPositionSelected = null;
+    }
+
     private object gridObject;
 
 

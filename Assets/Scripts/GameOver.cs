@@ -52,7 +52,17 @@ public class GameOver : MonoBehaviour
 
         gameOverTMP.gameObject.SetActive(false);
 
+        DestroyAllBalls();
+
         FindObjectOfType<SceneLoader>().LoadStartingScene();
     }
 
+    private void DestroyAllBalls()
+    {
+        Ball[] ballList = FindObjectsOfType<Ball>();
+        foreach (Ball ball in ballList)
+        {
+            Destroy(ball.gameObject);
+        }
+    }
 }
