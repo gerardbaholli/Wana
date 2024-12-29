@@ -32,7 +32,7 @@ public class LevelGrid : MonoBehaviour
 
     private void Start()
     {
-        ballList = FindObjectsOfType<Ball>();
+        ballList = FindObjectsByType<Ball>(FindObjectsSortMode.None);
 
         Ball.OnAnyBallSelected += Ball_OnAnyBallSelected;
         GridValidObject.OnValidPositionSelected += GridValidObject_OnValidPositionSelected;
@@ -76,7 +76,7 @@ public class LevelGrid : MonoBehaviour
 
     public void RemoveValidMovePosition()
     {
-        GridValidObject[] gridValidObjects = FindObjectsOfType<GridValidObject>();
+        GridValidObject[] gridValidObjects = FindObjectsByType<GridValidObject>(FindObjectsSortMode.None);
 
         foreach (GridValidObject gridValidObject in gridValidObjects)
         {

@@ -8,7 +8,7 @@ public class TurnSystem : MonoBehaviour
 {
     public static TurnSystem Instance { get; private set; }
 
-    //public event EventHandler OnTurnChanged;
+    public event EventHandler OnTurnChanged;
 
     private int turnNumber = 1;
     private Part playerTurn = Part.Player1;
@@ -39,12 +39,16 @@ public class TurnSystem : MonoBehaviour
             playerTurn = Part.Player1;
         }
 
-        //OnTurnChanged?.Invoke(this, EventArgs.Empty);
+        OnTurnChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public Part GetPlayerTurn()
     {
         return playerTurn;
+    }
+
+    public bool IsPlayerTurn(Part part) {
+        return playerTurn == part;
     }
 
 }

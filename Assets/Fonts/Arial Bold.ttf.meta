@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 623a147799e2f4413acc7b53fcf89362
+guid: 5eb384614e0c41643885815ac884c87c
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Arial
+  - Arial CE
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
