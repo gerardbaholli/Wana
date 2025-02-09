@@ -99,10 +99,10 @@ public class RuleSystem : MonoBehaviour
             }
 
             GridObject gridObject = gridObjectArray[rightIndex, ballGridPosition.y];
-            bool hasAnyBall = gridObject.HasAnyBall();
+            bool hasAnyPawn = gridObject.HasAnyPawn();
             bool isValidGridPosition = IsValidGridPosition(gridObject.GetGridPosition());
 
-            if (hasAnyBall || !isValidGridPosition)
+            if (hasAnyPawn || !isValidGridPosition)
                 return;
 
             GridPosition possibleMovePosition = new GridPosition(rightIndex, ballGridPosition.y);
@@ -124,10 +124,10 @@ public class RuleSystem : MonoBehaviour
             }
 
             GridObject gridObject = gridObjectArray[leftIndex, ballGridPosition.y];
-            bool hasAnyBall = gridObject.HasAnyBall();
+            bool hasAnyPawn = gridObject.HasAnyPawn();
             bool isValidGridPosition = IsValidGridPosition(gridObject.GetGridPosition());
 
-            if (hasAnyBall || !isValidGridPosition)
+            if (hasAnyPawn || !isValidGridPosition)
                 return;
 
             GridPosition possibleMovePosition = new GridPosition(leftIndex, ballGridPosition.y);
@@ -150,10 +150,10 @@ public class RuleSystem : MonoBehaviour
             }
 
             GridObject gridObject = gridObjectArray[ballGridPosition.x, downIndex];
-            bool hasAnyBall = gridObject.HasAnyBall();
+            bool hasAnyPawn = gridObject.HasAnyPawn();
             bool isValidGridPosition = IsValidGridPosition(gridObject.GetGridPosition());
 
-            if (hasAnyBall || !isValidGridPosition)
+            if (hasAnyPawn || !isValidGridPosition)
                 return;
 
             GridPosition possibleMovePosition = new GridPosition(ballGridPosition.x, downIndex);
@@ -176,10 +176,10 @@ public class RuleSystem : MonoBehaviour
             }
 
             GridObject gridObject = gridObjectArray[ballGridPosition.x, upIndex];
-            bool hasAnyBall = gridObject.HasAnyBall();
+            bool hasAnyPawn = gridObject.HasAnyPawn();
             bool isValidGridPosition = IsValidGridPosition(gridObject.GetGridPosition());
 
-            if (hasAnyBall || !isValidGridPosition)
+            if (hasAnyPawn || !isValidGridPosition)
                 return;
 
             GridPosition possibleMovePosition = new GridPosition(ballGridPosition.x, upIndex);
@@ -212,10 +212,10 @@ public class RuleSystem : MonoBehaviour
                 tempBallGridPosition.x++;
 
                 GridObject gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
-                bool hasAnyBall = gridObject.HasAnyBall();
+                bool hasAnyPawn = gridObject.HasAnyPawn();
                 bool isValidGridPosition = IsValidGridPosition(gridObject.GetGridPosition());
 
-                if (hasAnyBall)
+                if (hasAnyPawn)
                     return;
 
                 if (!isValidGridPosition)
@@ -225,7 +225,7 @@ public class RuleSystem : MonoBehaviour
                     tempBallGridPosition.y = temp;
 
                     gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
-                    if (gridObject.HasAnyBall())
+                    if (gridObject.HasAnyPawn())
                         return;
 
                     possibleCircularMovementList.Add(tempBallGridPosition);
@@ -243,10 +243,10 @@ public class RuleSystem : MonoBehaviour
                 tempBallGridPosition.y--;
 
                 GridObject gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
-                bool hasAnyBall = gridObject.HasAnyBall();
+                bool hasAnyPawn = gridObject.HasAnyPawn();
                 bool isValidGridPosition = IsValidGridPosition(gridObject.GetGridPosition());
 
-                if (hasAnyBall)
+                if (hasAnyPawn)
                     return;
 
                 if (!isValidGridPosition)
@@ -255,7 +255,7 @@ public class RuleSystem : MonoBehaviour
                     tempBallGridPosition.y = ++tempBallGridPosition.y - ballRing;
 
                     gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
-                    if (gridObject.HasAnyBall())
+                    if (gridObject.HasAnyPawn())
                         return;
 
                     possibleCircularMovementList.Add(tempBallGridPosition);
@@ -273,10 +273,10 @@ public class RuleSystem : MonoBehaviour
                 tempBallGridPosition.x--;
 
                 GridObject gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
-                bool hasAnyBall = gridObject.HasAnyBall();
+                bool hasAnyPawn = gridObject.HasAnyPawn();
                 bool isValidGridPosition = IsValidGridPosition(gridObject.GetGridPosition());
 
-                if (hasAnyBall)
+                if (hasAnyPawn)
                     return;
 
                 if (!isValidGridPosition)
@@ -286,7 +286,7 @@ public class RuleSystem : MonoBehaviour
                     tempBallGridPosition.y = temp;
 
                     gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
-                    if (gridObject.HasAnyBall())
+                    if (gridObject.HasAnyPawn())
                         return;
 
                     possibleCircularMovementList.Add(tempBallGridPosition);
@@ -304,10 +304,10 @@ public class RuleSystem : MonoBehaviour
                 tempBallGridPosition.y++;
 
                 GridObject gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
-                bool hasAnyBall = gridObject.HasAnyBall();
+                bool hasAnyPawn = gridObject.HasAnyPawn();
                 bool isValidGridPosition = IsValidGridPosition(gridObject.GetGridPosition());
 
-                if (hasAnyBall)
+                if (hasAnyPawn)
                     return;
 
                 if (!isValidGridPosition)
@@ -316,7 +316,7 @@ public class RuleSystem : MonoBehaviour
                     tempBallGridPosition.y = --tempBallGridPosition.y + ballRing;
 
                     gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
-                    if (gridObject.HasAnyBall())
+                    if (gridObject.HasAnyPawn())
                         return;
 
                     possibleCircularMovementList.Add(tempBallGridPosition);
@@ -347,10 +347,10 @@ public class RuleSystem : MonoBehaviour
                 tempBallGridPosition.x--;
 
                 GridObject gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
-                bool hasAnyBall = gridObject.HasAnyBall();
+                bool hasAnyPawn = gridObject.HasAnyPawn();
                 bool isValidGridPosition = IsValidGridPosition(gridObject.GetGridPosition());
 
-                if (hasAnyBall)
+                if (hasAnyPawn)
                     return;
 
                 if (!isValidGridPosition)
@@ -361,7 +361,7 @@ public class RuleSystem : MonoBehaviour
                     possibleCircularMovementList.Add(tempBallGridPosition);
 
                     gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
-                    if (gridObject.HasAnyBall())
+                    if (gridObject.HasAnyPawn())
                         return;
 
                     ballQuadrant = GetGridPositionQuadrant(tempBallGridPosition);
@@ -377,10 +377,10 @@ public class RuleSystem : MonoBehaviour
                 tempBallGridPosition.y--;
 
                 GridObject gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
-                bool hasAnyBall = gridObject.HasAnyBall();
+                bool hasAnyPawn = gridObject.HasAnyPawn();
                 bool isValidGridPosition = IsValidGridPosition(gridObject.GetGridPosition());
 
-                if (hasAnyBall)
+                if (hasAnyPawn)
                     return;
 
                 if (!isValidGridPosition)
@@ -390,7 +390,7 @@ public class RuleSystem : MonoBehaviour
                     tempBallGridPosition.y = temp;
 
                     gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
-                    if (gridObject.HasAnyBall())
+                    if (gridObject.HasAnyPawn())
                         return;
 
                     possibleCircularMovementList.Add(tempBallGridPosition);
@@ -408,10 +408,10 @@ public class RuleSystem : MonoBehaviour
                 tempBallGridPosition.x++;
 
                 GridObject gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
-                bool hasAnyBall = gridObject.HasAnyBall();
+                bool hasAnyPawn = gridObject.HasAnyPawn();
                 bool isValidGridPosition = IsValidGridPosition(gridObject.GetGridPosition());
 
-                if (hasAnyBall)
+                if (hasAnyPawn)
                     return;
 
                 if (!isValidGridPosition)
@@ -420,7 +420,7 @@ public class RuleSystem : MonoBehaviour
                     tempBallGridPosition.y = tempBallGridPosition.y + ballRing;
 
                     gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
-                    if (gridObject.HasAnyBall())
+                    if (gridObject.HasAnyPawn())
                         return;
 
                     possibleCircularMovementList.Add(tempBallGridPosition);
@@ -438,10 +438,10 @@ public class RuleSystem : MonoBehaviour
                 tempBallGridPosition.y++;
 
                 GridObject gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
-                bool hasAnyBall = gridObject.HasAnyBall();
+                bool hasAnyPawn = gridObject.HasAnyPawn();
                 bool isValidGridPosition = IsValidGridPosition(gridObject.GetGridPosition());
 
-                if (hasAnyBall)
+                if (hasAnyPawn)
                     return;
 
                 if (!isValidGridPosition)
@@ -451,7 +451,7 @@ public class RuleSystem : MonoBehaviour
                     tempBallGridPosition.y = temp;
 
                     gridObject = gridObjectArray[tempBallGridPosition.x, tempBallGridPosition.y];
-                    if (gridObject.HasAnyBall())
+                    if (gridObject.HasAnyPawn())
                         return;
 
                     possibleCircularMovementList.Add(tempBallGridPosition);
@@ -624,13 +624,13 @@ public class RuleSystem : MonoBehaviour
             {
                 GridObject gridObject = gridObjectArray[x, y];
 
-                if (!gridObject.HasAnyBall())
+                if (!gridObject.HasAnyPawn())
                     continue;
 
-                bool hasBallUp = HasAnyBallUp(gridObject);
-                bool hasBallDown = HasAnyBallDown(gridObject);
-                bool hasBallLeft = HasAnyBallLeft(gridObject);
-                bool hasBallRight = HasAnyBallRight(gridObject);
+                bool hasBallUp = HasAnyPawnUp(gridObject);
+                bool hasBallDown = HasAnyPawnDown(gridObject);
+                bool hasBallLeft = HasAnyPawnLeft(gridObject);
+                bool hasBallRight = HasAnyPawnRight(gridObject);
 
                 if (hasBallUp && hasBallDown && hasBallLeft && hasBallRight)
                 {
@@ -644,7 +644,7 @@ public class RuleSystem : MonoBehaviour
         return false;
     }
 
-    private bool HasAnyBallUp(GridObject gridObject)
+    private bool HasAnyPawnUp(GridObject gridObject)
     {
         GridPosition gridPosition = gridObject.GetGridPosition();
 
@@ -656,7 +656,7 @@ public class RuleSystem : MonoBehaviour
             if (gridPosition.y == 8)
                 upY = 0;
 
-            return gridObjectArray[gridPosition.x, upY].HasAnyBall();
+            return gridObjectArray[gridPosition.x, upY].HasAnyPawn();
         }
         else
         {
@@ -676,11 +676,11 @@ public class RuleSystem : MonoBehaviour
                 upGridPosition.y = gridPosition.x;
             }
 
-            return gridObjectArray[upGridPosition.x, upGridPosition.y].HasAnyBall();
+            return gridObjectArray[upGridPosition.x, upGridPosition.y].HasAnyPawn();
         }
     }
 
-    private bool HasAnyBallDown(GridObject gridObject)
+    private bool HasAnyPawnDown(GridObject gridObject)
     {
         GridPosition gridPosition = gridObject.GetGridPosition();
 
@@ -692,7 +692,7 @@ public class RuleSystem : MonoBehaviour
             if (gridPosition.y == 0)
                 downY = 8;
 
-            return gridObjectArray[gridPosition.x, downY].HasAnyBall();
+            return gridObjectArray[gridPosition.x, downY].HasAnyPawn();
         }
         else
         {
@@ -712,11 +712,11 @@ public class RuleSystem : MonoBehaviour
                 downGridPosition.y = gridPosition.x;
             }
 
-            return gridObjectArray[downGridPosition.x, downGridPosition.y].HasAnyBall();
+            return gridObjectArray[downGridPosition.x, downGridPosition.y].HasAnyPawn();
         }
     }
 
-    private bool HasAnyBallLeft(GridObject gridObject)
+    private bool HasAnyPawnLeft(GridObject gridObject)
     {
         GridPosition gridPosition = gridObject.GetGridPosition();
 
@@ -728,7 +728,7 @@ public class RuleSystem : MonoBehaviour
             if (gridPosition.x == 0)
                 leftX = 8;
 
-            return gridObjectArray[leftX, gridPosition.y].HasAnyBall();
+            return gridObjectArray[leftX, gridPosition.y].HasAnyPawn();
         }
         else
         {
@@ -748,11 +748,11 @@ public class RuleSystem : MonoBehaviour
                 leftGridPosition.y = gridPosition.x;
             }
 
-            return gridObjectArray[leftGridPosition.x, leftGridPosition.y].HasAnyBall();
+            return gridObjectArray[leftGridPosition.x, leftGridPosition.y].HasAnyPawn();
         }
     }
 
-    private bool HasAnyBallRight(GridObject gridObject)
+    private bool HasAnyPawnRight(GridObject gridObject)
     {
         GridPosition gridPosition = gridObject.GetGridPosition();
 
@@ -764,7 +764,7 @@ public class RuleSystem : MonoBehaviour
             if (gridPosition.x == 8)
                 rightX = 0;
 
-            return gridObjectArray[rightX, gridPosition.y].HasAnyBall();
+            return gridObjectArray[rightX, gridPosition.y].HasAnyPawn();
         }
         else
         {
@@ -784,7 +784,7 @@ public class RuleSystem : MonoBehaviour
                 rightGridPosition.y = gridPosition.x;
             }
 
-            return gridObjectArray[rightGridPosition.x, rightGridPosition.y].HasAnyBall();
+            return gridObjectArray[rightGridPosition.x, rightGridPosition.y].HasAnyPawn();
         }
     }
 

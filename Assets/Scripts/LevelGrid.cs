@@ -56,7 +56,7 @@ public class LevelGrid : MonoBehaviour
     {
         GridObject gridObject = gridSystem.GetGridObject(gridPosition);
 
-        if (!gridObject.HasAnyBall())
+        if (!gridObject.HasAnyPawn())
         {
             gridObject.AddBall(ball);
         }
@@ -66,13 +66,13 @@ public class LevelGrid : MonoBehaviour
     {
         GridObject gridObject = gridSystem.GetGridObject(gridPosition);
 
-        if (gridObject.HasAnyBall())
+        if (gridObject.HasAnyPawn())
         {
             gridObject.RemoveBall();
         }
     }
 
-    public bool HasBallAtGridPosition(GridPosition gridPosition) => gridSystem.GetGridObject(gridPosition).HasAnyBall();
+    public bool HasBallAtGridPosition(GridPosition gridPosition) => gridSystem.GetGridObject(gridPosition).HasAnyPawn();
 
     public void RemoveValidMovePosition()
     {

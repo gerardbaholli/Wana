@@ -1,48 +1,51 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class GridObject
+
+namespace Wana
 {
 
-    private GridSystem gridSystem;
-    private GridPosition gridPosition;
-    private Ball ball;
-
-    public GridObject(GridSystem gridSystem, GridPosition gridPosition)
+    public class GridObject
     {
-        this.gridSystem = gridSystem;
-        this.gridPosition = gridPosition;
-    }
 
-    public override string ToString()
-    {
-        return gridPosition.ToString();
-    }
+        private GridSystem gridSystem;
+        private GridPosition gridPosition;
+        private Pawn pawn;
 
-    public void AddBall(Ball ball)
-    {
-        this.ball = ball;
-    }
+        public GridObject(GridSystem gridSystem, GridPosition gridPosition)
+        {
+            this.gridSystem = gridSystem;
+            this.gridPosition = gridPosition;
+        }
 
-    public void RemoveBall()
-    {
-        this.ball = null;
-    }
+        public override string ToString()
+        {
+            return gridPosition.ToString();
+        }
 
-    public bool HasAnyBall()
-    {
-        return ball != null;
-    }
+        public void AddPawn(Pawn pawn)
+        {
+            this.pawn = pawn;
+        }
 
-    public Ball GetBall()
-    {
-        return ball;
-    }
+        public void RemovePawn()
+        {
+            this.pawn = null;
+        }
 
-    public GridPosition GetGridPosition()
-    {
-        return gridPosition;
+        public bool HasAnyPawn()
+        {
+            return pawn != null;
+        }
+
+        public Pawn GetPawn()
+        {
+            return pawn;
+        }
+
+        public GridPosition GetGridPosition()
+        {
+            return gridPosition;
+        }
+
     }
 
 }

@@ -1,111 +1,108 @@
 using UnityEngine;
-using TMPro;
-using System.Collections.Generic;
-using System;
-using Unity.VisualScripting;
-using System.Collections;
 
-public class GridSystem
+namespace Wana
 {
-
-    private int width;
-    private int height;
-    private float cellSize;
-    private GridObject[,] gridObjectArray;
-
-    public GridSystem(int width, int height, float cellSize)
+    public class GridSystem
     {
-        this.width = width;
-        this.height = height;
-        this.cellSize = cellSize;
 
-        gridObjectArray = new GridObject[width, height];
+        private int width;
+        private int height;
+        private float cellSize;
+        private float cellSpacing;
 
-        for (int x = 0; x < width; x++)
+        private GridObject[,] gridObjectArray;
+
+        public GridSystem(int width, int height, float cellSize, float cellSpacing)
         {
-            for (int y = 0; y < height; y++)
+            this.width = width;
+            this.height = height;
+            this.cellSize = cellSize;
+            this.cellSpacing = cellSpacing;
+
+            gridObjectArray = new GridObject[width, height];
+
+            for (int x = 0; x < width; x++)
             {
-                GridPosition gridPosition = new GridPosition(x, y);
-                gridObjectArray[x, y] = new GridObject(this, gridPosition);
+                for (int y = 0; y < height; y++)
+                {
+                    GridPosition gridPosition = new GridPosition(x, y);
+                    gridObjectArray[x, y] = new GridObject(this, gridPosition);
+                }
             }
+
+            this.cellSpacing = cellSpacing;
         }
-    }
 
-    public Vector2 GetWorldPosition(GridPosition gridPosition)
-    {
-        return new Vector2(gridPosition.x, gridPosition.y) * cellSize;
-    }
+        public Vector2 GetWorldPosition(GridPosition gridPosition)
+        {
+            return new Vector2(gridPosition.x, gridPosition.y) * cellSize;
+        }
 
-    public GridPosition GetGridPosition(Vector2 worldPosition)
-    {
-        return new GridPosition(
-            Mathf.RoundToInt(worldPosition.x / cellSize),
-            Mathf.RoundToInt(worldPosition.y / cellSize)
+        public GridPosition? GetGridPosition(Vector2 worldPosition)
+        {
+            float halfCellSizeWithSpacing = (cellSize / 2) - cellSpacing;
+
+            GridPosition gridPosition = new GridPosition(
+                Mathf.RoundToInt(worldPosition.x / cellSize),
+                Mathf.RoundToInt(worldPosition.y / cellSize)
             );
-    }
+            Vector2 gridWorldPosition = GetWorldPosition(gridPosition);
 
-    public GridObject GetGridObject(GridPosition gridPosition)
-    {
-        return gridObjectArray[gridPosition.x, gridPosition.y];
-    }
+            bool isInsideCell =
+                Mathf.Abs(gridWorldPosition.x - worldPosition.x) <= halfCellSizeWithSpacing &&
+                Mathf.Abs(gridWorldPosition.y - worldPosition.y) <= halfCellSizeWithSpacing;
 
-    public GridObject[,] GetGridObjectArray()
-    {
-        return gridObjectArray;
-    }
-
-    public int GetWidth()
-    {
-        return width;
-    }
-
-    public int GetHeight()
-    {
-        return height;
-    }
-
-    public float GetCellSize()
-    {
-        return cellSize;
-    }
-
-    public void CreateDebugObjects(Transform debugPrefab)
-    {
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                GridPosition gridPosition = new GridPosition(x, y);
-                Transform debugTransform = GameObject.Instantiate(debugPrefab, GetWorldPosition(gridPosition), Quaternion.identity);
-                GridDebugObject gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
-                gridDebugObject.SetGridObject(GetGridObject(gridPosition));
-            }
+            return isInsideCell ? gridPosition : null;
         }
-    }
 
-    /*
-    public void CreateValidPositionDebugObjects(Transform validDebugPrefab, Transform invalidDebugPrefab)
-    {
-        for (int x = 0; x < width; x++)
+
+        public GridObject GetGridObject(GridPosition? gridPosition)
         {
-            for (int y = 0; y < height; y++)
+            if (!gridPosition.HasValue)
             {
-                GridPosition gridPosition = new GridPosition(x, y);
-                if (RuleSystem.Instance.IsValidGridPosition(gridPosition))
-                {
-                    Transform debugTransform = GameObject.Instantiate(validDebugPrefab, GetWorldPosition(gridPosition), Quaternion.identity);
-                    GridDebugObject gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
-                    gridDebugObject.SetGridObject(GetGridObject(gridPosition));
-                }
-                else
-                {
-                    Transform debugTransform = GameObject.Instantiate(invalidDebugPrefab, GetWorldPosition(gridPosition), Quaternion.identity);
-                    GridDebugObject gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
-                    gridDebugObject.SetGridObject(GetGridObject(gridPosition));
-                }
+                Debug.LogWarning("GridPosition is has not a value.");
+                return null;
             }
-        }
-    }
-    */
 
+            if (
+                gridPosition.Value.x < 0 || gridPosition.Value.x >= gridObjectArray.GetLength(0) ||
+                gridPosition.Value.y < 0 || gridPosition.Value.y >= gridObjectArray.GetLength(1)
+                )
+            {
+                Debug.LogWarning("GridPosition outside index limits.");
+                return null;
+            }
+
+            return gridObjectArray[gridPosition.Value.x, gridPosition.Value.y];
+        }
+
+        public GridObject[,] GetGridObjectArray()
+        {
+            return gridObjectArray;
+        }
+
+        public int GetWidth()
+        {
+            return width;
+        }
+
+        public int GetHeight()
+        {
+            return height;
+        }
+
+        public float GetCellSize()
+        {
+            return cellSize;
+        }
+
+        public Vector2 GetGridCenterPosition()
+        {
+            float centerX = width / 2 * cellSize;
+            float centerY = height / 2 * cellSize;
+            return new Vector2(centerX, centerY);
+        }
+
+    }
+    
 }
