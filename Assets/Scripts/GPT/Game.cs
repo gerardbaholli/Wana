@@ -12,6 +12,10 @@ namespace Wana
         [SerializeField] private GameObject player2PawnGO;
         [SerializeField] private PawnGO pawnGOPrefab;
 
+
+        public event EventHandler OnMoveCompleted;
+
+
         private const int TOTAL_PAWNS_FOR_PLAYER = 8;
 
         private Board board;
@@ -229,22 +233,26 @@ namespace Wana
                     isPawnSelected = true;
                     pawnToMove = pawn;
                 }
-                else {
+                else
+                {
                     Debug.Log("No pawn in position: " + gridPosition.ToString());
                 }
             }
-            else {
+            else
+            {
                 Pawn pawn = board.GetPawn(gridPosition);
                 if (pawn is not null)
                 {
                     Debug.Log("Position: " + gridPosition.ToString() + " is not empty.");
                 }
-                else {
+                else
+                {
                     Debug.Log("Position: " + gridPosition.ToString() + " is empty.");
                     Debug.Log("Pawn placed in: " + gridPosition.ToString());
                     board.MakeAction(pawnToMove, gridPosition);
                     pawnToMove = null;
                     isPawnSelected = false;
+                    OnMoveCompleted?.Invoke(this, EventArgs.Empty);
                 }
             }
 

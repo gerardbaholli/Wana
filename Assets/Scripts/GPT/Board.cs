@@ -1,10 +1,11 @@
 #nullable enable
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Wana
 {
-    public class Board
+    public class Board : ICloneable
     {
 
         public const int BOARD_SIZE = 9;
@@ -28,7 +29,9 @@ namespace Wana
 
         public void MakeAction(Pawn pawn, GridPosition gridPositionToMoveOn)
         {
-            // BoardAction boardAction = new BoardAction(this, pawn, gridPositionToMoveOn);
+            // Board clonedBoard = (Board) this.Clone();
+            // BoardAction boardAction = new BoardAction(clonedBoard, pawn, gridPositionToMoveOn);
+
 
             GridPosition pawnToMoveGridPosition = pawn.GetGridPosition();
             pawnsMatrix[pawnToMoveGridPosition.x, pawnToMoveGridPosition.y] = null;
@@ -119,5 +122,9 @@ namespace Wana
             return count;
         }
 
+        public object Clone()
+        {
+            return new Board((Pawn?[,]) pawnsMatrix.Clone());
+        }
     }
 }
