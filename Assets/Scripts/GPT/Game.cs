@@ -13,7 +13,6 @@ namespace Wana
         [SerializeField] private PawnGO pawnGOPrefab;
 
         private const int TOTAL_PAWNS_FOR_PLAYER = 8;
-        private const int UNIT_PER_GRID = 2;
 
         private Board board;
         private List<Player> players;
@@ -78,10 +77,19 @@ namespace Wana
             player1Pawns = new List<Pawn>();
             player2Pawns = new List<Pawn>();
 
+            Color player1PawnsColor = new Color(0.5f, 0.84f, 0.85f, 1f);
+            Color player2PawnsColor = new Color(0.85f, 0.5f, 0.75f, 1f);
+
+            GameObject parentPawn = new GameObject("PawnContainer");
+
             for (int i = 0; i < TOTAL_PAWNS_FOR_PLAYER; i++)
             {
-                Pawn pawnX = new Pawn(PawnType.X);
-                Pawn pawnO = new Pawn(PawnType.O);
+                PawnGO pawnGOX = Instantiate(pawnGOPrefab, new Vector2(), Quaternion.identity, parentPawn.transform);
+                PawnGO pawnGOO = Instantiate(pawnGOPrefab, new Vector2(), Quaternion.identity, parentPawn.transform);
+                pawnGOX.SetColor(player1PawnsColor);
+                pawnGOO.SetColor(player2PawnsColor);
+                Pawn pawnX = new Pawn(PawnType.X, pawnGOX);
+                Pawn pawnO = new Pawn(PawnType.O, pawnGOO);
 
                 player1Pawns.Add(pawnX);
                 player2Pawns.Add(pawnO);
@@ -97,9 +105,9 @@ namespace Wana
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    Vector3 worldPosition = new Vector3(i * UNIT_PER_GRID, j * UNIT_PER_GRID, 1);
+                    Vector3 worldPosition = new Vector3(i * Board.CELL_SIZE, j * Board.CELL_SIZE, 1);
                     GameObject gameObject = Instantiate(gameObjectDebug, worldPosition, Quaternion.identity, parentGridDebug.transform);
-                    gameObject.GetComponent<GridDebugObject>().SetTextMeshPro((worldPosition.x / UNIT_PER_GRID).ToString() + " " + (worldPosition.y / UNIT_PER_GRID).ToString());
+                    gameObject.GetComponent<GridDebugObject>().SetTextMeshPro((worldPosition.x / Board.CELL_SIZE).ToString() + " " + (worldPosition.y / Board.CELL_SIZE).ToString());
                 }
             }
 
@@ -125,19 +133,29 @@ namespace Wana
             player2Pawns[6].SetGridPosition(new GridPosition(3, 8));
             player2Pawns[7].SetGridPosition(new GridPosition(5, 8));
 
-            GameObject parentPawn = new GameObject("PawnContainer");
+            // foreach (Pawn pawn1 in player1Pawns)
+            // {
+            //     pawn1.UpdatePawnGOPosition();
+            // }
 
-            foreach (Pawn pawn in player1Pawns)
-            {
-                Vector3 worldPosition = new Vector3(pawn.GetGridPosition().x * UNIT_PER_GRID, pawn.GetGridPosition().y * UNIT_PER_GRID, 0);
-                GameObject gameObject = Instantiate(player1PawnGO, worldPosition, Quaternion.identity, parentPawn.transform);
-            }
+            // foreach (Pawn pawn2 in player2Pawns)
+            // {
+            //     pawn2.UpdatePawnGOPosition();
+            // }
 
-            foreach (Pawn pawn in player2Pawns)
-            {
-                Vector3 worldPosition = new Vector3(pawn.GetGridPosition().x * UNIT_PER_GRID, pawn.GetGridPosition().y * UNIT_PER_GRID, 0);
-                GameObject gameObject = Instantiate(player2PawnGO, worldPosition, Quaternion.identity, parentPawn.transform);
-            }
+            // GameObject parentPawn = new GameObject("PawnContainer");
+
+            // foreach (Pawn pawn in player1Pawns)
+            // {
+            //     Vector3 worldPosition = new Vector3(pawn.GetGridPosition().x * Board.CELL_SIZE, pawn.GetGridPosition().y * Board.CELL_SIZE, 0);
+            //     GameObject gameObject = Instantiate(player1PawnGO, worldPosition, Quaternion.identity, parentPawn.transform);
+            // }
+
+            // foreach (Pawn pawn in player2Pawns)
+            // {
+            //     Vector3 worldPosition = new Vector3(pawn.GetGridPosition().x * Board.CELL_SIZE, pawn.GetGridPosition().y * Board.CELL_SIZE, 0);
+            //     GameObject gameObject = Instantiate(player2PawnGO, worldPosition, Quaternion.identity, parentPawn.transform);
+            // }
         }
 
 
@@ -155,15 +173,101 @@ namespace Wana
 
         private void InputManager_OnMouseButtonDown(object sender, MouseEventArgs e)
         {
-            Debug.Log($"Mouse Down at: {e.mouseWorldPosition}");
-            Instantiate(pawnGOPrefab, e.mouseWorldPosition, Quaternion.identity);
+            // Debug.Log($"Mouse Down at: {e.mouseWorldPosition}");
+            // PawnGO pawnGO = Instantiate(pawnGOPrefab, e.mouseWorldPosition, Quaternion.identity);
+            // pawnGO.SetLabel(HandleInput(e.mouseWorldPosition));
+
+
+            GridPosition? gridPosition = GridManager.Instance.GetGridPosition(e.mouseWorldPosition);
+            if (gridPosition is not null)
+            {
+                // Debug.Log("Test " + board.GetPawn(gridPosition.Value));
+                HandlePawnMovement(gridPosition.Value);
+            }
         }
 
         private void InputManager_HandleMouseUp(object sender, MouseEventArgs e)
         {
-            Debug.Log($"Mouse Up at: {e.mouseWorldPosition}");
+            // Debug.Log($"Mouse Up at: {e.mouseWorldPosition}");
+        }
+
+        private string HandleInput(Vector2 worldPosition)
+        {
+
+            float cellSize = 2.0f;
+            int gridX = Mathf.FloorToInt(worldPosition.x / cellSize);
+            int gridY = Mathf.FloorToInt(worldPosition.y / cellSize);
+
+
+            var test = GridManager.Instance.GetGridPosition(worldPosition);
+            //Debug.Log($"Cella selezionata: ({test.x}, {test.y})");
+
+            GridPosition? gridPosition = GridManager.Instance.GetGridPosition(worldPosition);
+
+            if (gridPosition.HasValue)
+            {
+                GridObject gridObject = GridManager.Instance.GetGridObject(gridPosition.Value);
+                Debug.Log(gridObject);
+                return gridObject.GetGridPosition().ToString();
+            }
+
+            return "null";
+        }
+
+        private bool isPawnSelected = false;
+        private Pawn pawnToMove;
+
+        private void HandlePawnMovement(GridPosition gridPosition)
+        {
+
+            if (!isPawnSelected)
+            {
+                Pawn pawn = board.GetPawn(gridPosition);
+                if (pawn is not null)
+                {
+                    Debug.Log("Pawn selected in position: " + gridPosition.ToString());
+                    isPawnSelected = true;
+                    pawnToMove = pawn;
+                }
+                else {
+                    Debug.Log("No pawn in position: " + gridPosition.ToString());
+                }
+            }
+            else {
+                Pawn pawn = board.GetPawn(gridPosition);
+                if (pawn is not null)
+                {
+                    Debug.Log("Position: " + gridPosition.ToString() + " is not empty.");
+                }
+                else {
+                    Debug.Log("Position: " + gridPosition.ToString() + " is empty.");
+                    Debug.Log("Pawn placed in: " + gridPosition.ToString());
+                    board.MakeAction(pawnToMove, gridPosition);
+                    pawnToMove = null;
+                    isPawnSelected = false;
+                }
+            }
+
+
         }
 
     }
 
 }
+
+
+// public enum PlayerType { Player1, Player2 }
+
+// public static class InitialPositions
+// {
+//     public static readonly Dictionary<PlayerType, List<GridPosition>> Positions = new()
+//     {
+//         { PlayerType.Player1, new List<GridPosition> { new(3, 0), new(3, 1), new(3, 2), new(3, 3), new(5, 0), new(5, 1), new(5, 2), new(5, 3) } },
+//         { PlayerType.Player2, new List<GridPosition> { new(3, 5), new(3, 6), new(3, 7), new(3, 8), new(5, 5), new(5, 6), new(5, 7), new(5, 8) } }
+//     };
+
+//     public static List<GridPosition> GetPositions(PlayerType player)
+//     {
+//         return Positions.ContainsKey(player) ? Positions[player] : new List<GridPosition>();
+//     }
+// }

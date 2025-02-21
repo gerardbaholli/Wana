@@ -7,7 +7,9 @@ namespace Wana
     public class Board
     {
 
-        const int BOARD_SIZE = 9;
+        public const int BOARD_SIZE = 9;
+        public const int CELL_SIZE = 2;
+
         public Pawn?[,] pawnsMatrix;
 
         public Board(Pawn?[,] pawnsMatrix)
@@ -22,6 +24,27 @@ namespace Wana
                 }
             }
 
+        }
+
+        public void MakeAction(Pawn pawn, GridPosition gridPositionToMoveOn)
+        {
+            // BoardAction boardAction = new BoardAction(this, pawn, gridPositionToMoveOn);
+
+            GridPosition pawnToMoveGridPosition = pawn.GetGridPosition();
+            pawnsMatrix[pawnToMoveGridPosition.x, pawnToMoveGridPosition.y] = null;
+            pawnsMatrix[gridPositionToMoveOn.x, gridPositionToMoveOn.y] = pawn;
+            pawn.SetGridPosition(gridPositionToMoveOn);
+
+        }
+
+        public Pawn? GetPawn(GridPosition? pawnPosition)
+        {
+            if (pawnPosition is null)
+            {
+                return null;
+            }
+            GridPosition pos = pawnPosition.Value;
+            return pawnsMatrix[pos.x, pos.y];
         }
 
         public void PrintBoard()
@@ -72,7 +95,8 @@ namespace Wana
 
         public int? GetPawnNeighborCount(Pawn? pawn)
         {
-            if (pawn is null) {
+            if (pawn is null)
+            {
                 return null;
             }
 

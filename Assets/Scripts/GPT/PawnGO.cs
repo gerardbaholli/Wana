@@ -22,4 +22,9 @@ public class PawnGO : MonoBehaviour
         label.text = value;
     }
 
+    public void SetColor(Color color)
+    {
+        GetComponent<SpriteRenderer>().color = color;
+    }
+
 }
