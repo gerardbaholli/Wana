@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Wana;
 
@@ -54,7 +55,7 @@ public class TurnManager : MonoBehaviour
 
         if (currentTurn == Turn.Player2)
         {
-            Invoke(nameof(AIPlayTurn), 1.0f); 
+            Invoke(nameof(AIPlayTurn), 1.0f);
         }
 
         Debug.Log("Current turn: " + currentTurn);
@@ -73,7 +74,14 @@ public class TurnManager : MonoBehaviour
     private void AIPlayTurn()
     {
         Debug.Log("AI sta giocando il suo turno...");
-        // Simula l'azione dell'IA qui
-        Invoke(nameof(NextTurn), 1.5f); // Dopo che l'IA ha giocato, passa al turno successivo
+        StartCoroutine(AIExecuteMoveCoroutine());
     }
+
+    private IEnumerator AIExecuteMoveCoroutine()
+    {
+        yield return new WaitForSeconds(1.5f);
+        game.GetPlayerAI().TempMakeRandomMovement();
+        NextTurn();
+    }
+
 }

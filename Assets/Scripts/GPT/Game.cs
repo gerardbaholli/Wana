@@ -23,6 +23,7 @@ namespace Wana
 
         private List<Pawn> player1Pawns;
         private List<Pawn> player2Pawns;
+        private PlayerAI playerAI;
 
         private void Start()
         {
@@ -54,6 +55,7 @@ namespace Wana
 
             board = new Board(pawnsMatrix);
             board.PrintBoard();
+            InitPlayerAI();
         }
 
         private void Update()
@@ -162,7 +164,9 @@ namespace Wana
             // }
         }
 
-
+        private void InitPlayerAI() {
+            playerAI = new PlayerAI(board);
+        }
         private void OnEnable()
         {
             InputManager.Instance.OnMouseButtonDown += InputManager_OnMouseButtonDown;
@@ -257,6 +261,10 @@ namespace Wana
             }
 
 
+        }
+
+        public PlayerAI GetPlayerAI() {
+            return playerAI;
         }
 
     }
